@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Danh sách việc cần làm</h1>
+<ul>
+  <li th:each="todo: ${todoList}" th:object="${todo}">
+    <span th:text="*{title}"></span> : <span th:text="*{detail}"></span>
+      <a th:href="@{/update-todo(id=*{id})}">update</a>
+      <a th:href="@{/delete-todo(id=*{id})}">delete</a>
+  </li>
+</ul>
+<a th:href="@{/add-todo}"> + Thêm công việc</a>
+</body>
+</html>

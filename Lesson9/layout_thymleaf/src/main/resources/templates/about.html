@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="layout/main-layout  :: main-fragment(
+~{::title},
+~{::#about-header},
+~{::#about-main-content},
+~{::#about-footer},
+~{}
+)"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title of About page</title>
+</head>
+<body>
+<div id="about-header">Header of About page</div>
+<div id="about-main-content">Contents of About page</div>
+<div id="about-footer">Footer of About page</div>
+</body>
+</html>

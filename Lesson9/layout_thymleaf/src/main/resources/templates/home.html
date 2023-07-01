@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="layout/main-layout  :: main-fragment(
+~{::title},
+~{::#home-header},
+~{::#home-main-content},
+~{::#home-footer},
+~{}
+)"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title of Home page</title>
+
+</head>
+<body>
+<div id="home-header">Header of Home page</div>
+<div id="home-main-content">Contents of Home page</div>
+<div id="home-footer">Footer of Home page</div>
+</body>
+</html>

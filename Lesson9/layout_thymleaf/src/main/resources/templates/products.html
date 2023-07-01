@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="layout/main-layout  :: main-fragment(
+~{::title},
+~{::#products-header},
+~{::#products-main-content},
+~{::#products-footer},
+~{::#products-static-resource}
+)"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title of Products page</title>
+    <th:block id="products-static-resource">
+        <link rel="stylesheet" th:href="@{/css/product.css}">
+    </th:block>
+</head>
+<body>
+<div id="products-header">Header of Products page</div>
+<div id="products-main-content">
+    <ul>
+        <li>Iphone 15 promax</li>
+        <li>Samsung S24 ultra</li>
+        <li>Oppo</li>
+    </ul>
+</div>
+<!--<div id="products-footer">Footer of Products page</div>-->
+</body>
+</html>

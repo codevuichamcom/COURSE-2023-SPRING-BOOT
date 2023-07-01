@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="main-fragment(title,header,mainContent,footer,otherStaticResource)">
+<head>
+    <meta charset="UTF-8">
+    <title th:replace="${title}">Title</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <th:block th:replace="${otherStaticResource}?:~{}"></th:block>
+</head>
+<body>
+<div class="header" th:insert="${header}?:~{}">Header</div>
+<div class="main">
+    <div class="main__nav">
+        <div class="main__nav--link"><a href="/">Home</a></div>
+        <div class="main__nav--link"><a href="/products">Product</a></div>
+        <div class="main__nav--link"><a href="/about">About</a></div>
+    </div>
+    <div class="main__content" th:insert="${mainContent}">Content</div>
+</div>
+<div class="footer" th:insert="${footer}?:~{fragment/app-fragment::footer}">Footer</div>
+</body>
+</html>
