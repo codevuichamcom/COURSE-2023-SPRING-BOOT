@@ -4,8 +4,10 @@ import com.example.usermanagementsystem.dto.UserDTOCreate;
 import com.example.usermanagementsystem.dto.UserDTOResponse;
 import com.example.usermanagementsystem.dto.UserDTOUpdate;
 import com.example.usermanagementsystem.entity.User;
+import com.example.usermanagementsystem.model.CustomError;
 import com.example.usermanagementsystem.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,22 +21,24 @@ public class UserController {
     public UserDTOResponse createUser(@RequestBody UserDTOCreate userDTOCreate) {
         return userService.createUser(userDTOCreate);
     }
+
     @GetMapping("/users")
-    public List<UserDTOResponse> getAllUser(){
+    public List<UserDTOResponse> getAllUser() {
         return userService.getAllUser();
     }
+
     @GetMapping("/users/{id}")
     public UserDTOResponse getUserById(@PathVariable int id){
         return userService.getUserById(id);
     }
 
     @PutMapping("/users/{id}")
-    public UserDTOResponse updateUser(@RequestBody UserDTOUpdate userDTOUpdate, @PathVariable int id){
-        return userService.updateUser(userDTOUpdate,id);
+    public UserDTOResponse updateUser(@RequestBody UserDTOUpdate userDTOUpdate, @PathVariable int id) {
+        return userService.updateUser(userDTOUpdate, id);
     }
 
     @DeleteMapping("/users/{id}")
-    public UserDTOResponse deleteUser(@PathVariable int id){
+    public UserDTOResponse deleteUser(@PathVariable int id) {
         return userService.deleteUser(id);
     }
 }

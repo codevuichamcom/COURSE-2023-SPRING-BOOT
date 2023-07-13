@@ -3,7 +3,9 @@ package com.example.usermanagementsystem.service.impl;
 import com.example.usermanagementsystem.dto.UserDTOCreate;
 import com.example.usermanagementsystem.dto.UserDTOResponse;
 import com.example.usermanagementsystem.dto.UserDTOUpdate;
+import com.example.usermanagementsystem.entity.NotFoundException;
 import com.example.usermanagementsystem.entity.User;
+import com.example.usermanagementsystem.model.CustomError;
 import com.example.usermanagementsystem.repository.UserRepository;
 import com.example.usermanagementsystem.service.UserService;
 import com.example.usermanagementsystem.util.mapper.UserMapper;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -39,8 +42,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTOResponse getUserById(int id) {
-        User user = userRepository.findById(id).get();
-        return UserMapper.toUserDTOResponse(user);
+        Optional<User> userOptional = userRepository.findById(id);
+        if (userOptional.isEmpty()) {
+            throw new NotFoundException(CustomError.builder().code("404").message("User does not exist").build());
+        } else {
+            return UserMapper.toUserDTOResponse(userOptional.get());
+        }
+
     }
 
     @Override
@@ -53,7 +61,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTOResponse deleteUser(int id) {
-        User user = userRepository.findById(id).get();
+        User user  = userRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException(CustomError
+                        .builder()
+                        .code("404")
+                        .message("User does not exist")
+                        .build()));
         userRepository.delete(user);
         return UserMapper.toUserDTOResponse(user);
     }
