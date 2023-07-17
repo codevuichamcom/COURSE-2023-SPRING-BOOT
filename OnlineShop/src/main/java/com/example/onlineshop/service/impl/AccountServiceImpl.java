@@ -5,6 +5,7 @@ import com.example.onlineshop.dto.AccountDTOResponse;
 import com.example.onlineshop.dto.LoginDTORequest;
 import com.example.onlineshop.dto.LoginDTOResponse;
 import com.example.onlineshop.entity.Account;
+import com.example.onlineshop.exception.OnlineShopException;
 import com.example.onlineshop.mapper.AccountMapper;
 import com.example.onlineshop.repository.AccountRepository;
 import com.example.onlineshop.service.AccountService;
@@ -40,7 +41,7 @@ public class AccountServiceImpl implements AccountService {
         boolean isAuthentication = passwordEncoder
                 .matches(loginDTORequest.getPassword(), account.getPassword());
         if(!isAuthentication){
-            throw new RuntimeException("Username or password is incorrect");
+            throw OnlineShopException.badRequest("Username or password is incorrect");
         }
         //ok->gen token
         final int ONE_DAY = 24 * 60 *60;
