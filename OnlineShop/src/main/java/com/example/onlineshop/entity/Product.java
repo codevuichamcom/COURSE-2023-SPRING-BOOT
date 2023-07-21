@@ -33,4 +33,12 @@ public class Product {
     @JoinColumn(name = "category_id")
     Category category;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "brand_id")
+    Brand brand;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "color_id")
+    Color color;
+
 }

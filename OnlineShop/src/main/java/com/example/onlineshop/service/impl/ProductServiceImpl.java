@@ -1,8 +1,10 @@
 package com.example.onlineshop.service.impl;
 
+import com.example.onlineshop.dto.PagingDTOResponse;
+import com.example.onlineshop.dto.ProductDTOFilter;
 import com.example.onlineshop.dto.ProductDTOResponse;
 import com.example.onlineshop.mapper.ProductMapper;
-import com.example.onlineshop.repository.ProductCategory;
+import com.example.onlineshop.repository.criteria.ProductRepositoryCriteria;
 import com.example.onlineshop.service.ProductService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -16,11 +18,9 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE,makeFinal = true)
 public class ProductServiceImpl implements ProductService {
-    ProductCategory productCategory;
+    ProductRepositoryCriteria productRepositoryCriteria;
     @Override
-    public List<ProductDTOResponse> getAllCategory() {
-        return productCategory.findAll().stream()
-                .map(ProductMapper::toProductDTOResponse)
-                .collect(Collectors.toList());
+    public PagingDTOResponse searchProduct(ProductDTOFilter productDTOFilter) {
+        return productRepositoryCriteria.search(productDTOFilter);
     }
 }
