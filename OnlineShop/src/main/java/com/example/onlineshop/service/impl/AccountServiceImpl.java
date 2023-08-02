@@ -24,12 +24,33 @@ public class AccountServiceImpl implements AccountService {
     PasswordEncoder passwordEncoder;
     JwtTokenUtil jwtTokenUtil;
 
+    // TH1: Username is null => ko cho tao
+    // TH2: Email is null => Ko cho tao
+    // TH3: Username is existed => ko cho tao
+    // TH4: Email is existed => Ko cho tao
+    // TH5: Tao account thanh cong
     @Override
     public AccountDTOResponse createAccount(AccountDTOCreate accountDTOCreate) {
+        validateAccountDTOCreate(accountDTOCreate);
         Account account = AccountMapper.toAccount(accountDTOCreate);
         account.setPassword(passwordEncoder.encode(account.getPassword()));
         account = accountRepository.save(account);
         return AccountMapper.toAccountDTOResponse(account);
+    }
+
+    private void validateAccountDTOCreate(AccountDTOCreate accountDTOCreate) {
+        if(accountDTOCreate.getUsername() == null){
+            throw OnlineShopException.badRequest("Username must be not null");
+        }
+        if(accountDTOCreate.getEmail() == null){
+            throw OnlineShopException.badRequest("Email must be not null");
+        }
+        if(accountRepository.existsByUsername(accountDTOCreate.getUsername())){
+            throw OnlineShopException.badRequest("Username is existed");
+        }
+        if(accountRepository.existsByEmail(accountDTOCreate.getEmail())){
+            throw OnlineShopException.badRequest("Email is existed");
+        }
     }
 
     @Override
